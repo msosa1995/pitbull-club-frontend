@@ -1,0 +1,30 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --negro:        #060606;
+  --negro-2:      #0e0e0e;
+  --negro-3:      #161616;
+  --negro-4:      #1e1e1e;
+  --rojo:         #CC1100;
+  --rojo-oscuro:  #8B0000;
+  --dorado:       #C4956A;
+  --dorado-osc:   #8B6240;
+  --blanco:       #F0F0F0;
+  --gris:         #555;
+  --sidebar-w:    245px;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--negro-2);
+  color: var(--blanco);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: inherit; }
+input, select, textarea { font-family: inherit; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--negro); }
+::-webkit-scrollbar-thumb { background: var(--dorado-osc); border-radius: 3px; }
