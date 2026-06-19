@@ -94,6 +94,9 @@ export default function Integrantes() {
                       {m.activo ? 'Activo' : 'Inactivo'}
                     </span>
                   </div>
+                  <div style={styles.webBadge(m)}>
+                    {m.tiene_usuario ? '✅ Web activo' : m.cedula ? '⏳ CI cargada' : '❌ Sin CI'}
+                  </div>
 
                   <div style={styles.actions}>
                     <Link to={`/integrantes/${m.id}`} style={styles.btnVer}>Ver perfil</Link>
@@ -176,4 +179,8 @@ const styles = {
     borderRadius: 2, padding: '7px 10px', fontSize: 14, cursor: 'pointer', color: '#CC1100',
   },
   empty: { gridColumn: '1/-1', textAlign: 'center', padding: 48, color: '#333', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 },
+  webBadge: (m) => ({
+    marginTop: 6, fontSize: 10, fontWeight: 700, letterSpacing: 0.5,
+    color: m.tiene_usuario ? '#5aaa5a' : m.cedula ? '#C4956A' : '#555',
+  }),
 }

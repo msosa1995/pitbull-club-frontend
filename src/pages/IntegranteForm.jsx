@@ -5,7 +5,7 @@ import Layout from '../components/Layout'
 
 const empty = {
   nombre: '', apodo: '', ciudad: '', pais: 'Paraguay',
-  whatsapp: '', email: '', activo: true, notas: '',
+  whatsapp: '', email: '', activo: true, notas: '', cedula: '',
 }
 
 export default function IntegranteForm() {
@@ -16,11 +16,14 @@ export default function IntegranteForm() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
+  const [tieneUsuario, setTieneUsuario] = useState(false)
+
   useEffect(() => {
     if (isEdit) {
       getIntegrante(id).then(r => {
-        const { perros, total_perros, foto, ...rest } = r.data
-        setForm(rest)
+        const { perros, total_perros, foto, usuario, tiene_usuario, ...rest } = r.data
+        setForm({ ...empty, ...rest })
+        setTieneUsuario(!!usuario)
       })
     }
   }, [id])
@@ -50,6 +53,20 @@ export default function IntegranteForm() {
       </div>
 
       <form onSubmit={handleSubmit} style={styles.form}>
+        {isEdit && (
+          <div style={styles.estadoCuenta}>
+            <span style={styles.estadoIcon}>{tieneUsuario ? '✅' : form.cedula ? '⏳' : '❌'}</span>
+            <div>
+              <div style={styles.estadoLabel}>
+                {tieneUsuario ? 'Cuenta activada' : form.cedula ? 'CI cargada — pendiente de activación' : 'Sin acceso web'}
+              </div>
+              <div style={styles.estadoSub}>
+                {tieneUsuario ? 'El integrante ya activó su cuenta.' : form.cedula ? 'El integrante puede ingresar y crear su contraseña.' : 'Cargá la CI para que pueda ingresar.'}
+              </div>
+            </div>
+          </div>
+        )}
+
         <div style={styles.grid}>
           <Field label="Nombre completo *" value={form.nombre} onChange={v => set('nombre', v)} required />
           <Field label="Apodo" value={form.apodo} onChange={v => set('apodo', v)} />
@@ -57,6 +74,7 @@ export default function IntegranteForm() {
           <Field label="País" value={form.pais} onChange={v => set('pais', v)} />
           <Field label="WhatsApp" value={form.whatsapp} onChange={v => set('whatsapp', v)} placeholder="0981-000-000" />
           <Field label="Email" type="email" value={form.email} onChange={v => set('email', v)} />
+          <Field label="Nro. de Cédula (para acceso web)" value={form.cedula || ''} onChange={v => set('cedula', v)} placeholder="Ej: 4567890" />
         </div>
 
         <div style={styles.field}>
@@ -110,6 +128,10 @@ const styles = {
   back: { color: '#C4956A', fontSize: 13, display: 'block', marginBottom: 6 },
   title: { fontSize: 24, fontWeight: 700 },
   form: { background: '#fff', borderRadius: 10, padding: '24px 28px', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', maxWidth: 700 },
+  estadoCuenta: { display: 'flex', alignItems: 'flex-start', gap: 12, background: '#f8f8f8', border: '1px solid #eee', borderRadius: 8, padding: '12px 16px', marginBottom: 20 },
+  estadoIcon: { fontSize: 20, flexShrink: 0 },
+  estadoLabel: { fontSize: 13, fontWeight: 700, color: '#333' },
+  estadoSub: { fontSize: 12, color: '#888', marginTop: 2 },
   grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 },
   field: { display: 'flex', flexDirection: 'column', gap: 5, marginBottom: 16 },
   label: { color: '#666', fontSize: 13 },
