@@ -25,6 +25,7 @@ import PerroForm from './pages/PerroForm'
 
 // Panel de miembro
 import MiPanel from './pages/MiPanel'
+import MiPerfil from './pages/MiPerfil'
 import MisPerros from './pages/MisPerros'
 import MiPerroForm from './pages/MiPerroForm'
 import MisCamadas from './pages/MisCamadas'
@@ -92,6 +93,7 @@ function AppRoutes() {
 
       {/* ══ PANEL DE MIEMBRO ══ */}
       <Route path="/mi-panel" element={<MemberRoute><MiPanel /></MemberRoute>} />
+      <Route path="/mi-perfil" element={<MemberRoute><MiPerfil /></MemberRoute>} />
       <Route path="/mis-perros" element={<MemberRoute><MisPerros /></MemberRoute>} />
       <Route path="/mis-perros/nuevo" element={<MemberRoute><MiPerroForm /></MemberRoute>} />
       <Route path="/mis-perros/:id/editar" element={<MemberRoute><MiPerroForm /></MemberRoute>} />

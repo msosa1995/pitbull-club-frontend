@@ -82,6 +82,12 @@ export const deleteCamada = (id) => api.delete(`/api/camadas/${id}/`)
 
 // Sesión
 export const getMe = () => api.get('/api/me/')
+export const getMiPerfil = () => api.get('/api/mi-perfil/')
+export const updateMiPerfil = (data) => {
+  const formData = new FormData()
+  Object.entries(data).forEach(([k, v]) => { if (v !== undefined && v !== null) formData.append(k, v) })
+  return api.patch('/api/mi-perfil/', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+}
 export const cambiarPassword = (data) => api.post('/api/cambiar-password/', data)
 export const verificarCI = (cedula) => axios.post(`${API_URL}/api/verificar-ci/`, { cedula })
 export const activarCuenta = (cedula, password) => axios.post(`${API_URL}/api/activar-cuenta/`, { cedula, password })

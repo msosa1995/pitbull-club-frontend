@@ -30,6 +30,7 @@ export default function MiPanel() {
 
         <nav style={styles.nav}>
           <SideLink to="/mi-panel" icon="▦" label="INICIO" />
+          <SideLink to="/mi-perfil" icon="👤" label="MI PERFIL" />
           <SideLink to="/mis-perros" icon="🐕" label="MIS PERROS" />
           <SideLink to="/mis-camadas" icon="🐾" label="MIS CAMADAS" />
           <SideLink to="/cambiar-password" icon="🔑" label="CONTRASEÑA" />
@@ -77,6 +78,7 @@ export default function MiPanel() {
         <div style={styles.section}>
           <div style={styles.sectionTitle}>ACCIONES RÁPIDAS</div>
           <div style={styles.acciones}>
+            <AccionCard to="/mi-perfil" icon="👤" label="Editar mi perfil" />
             <AccionCard to="/mis-perros/nuevo" icon="➕" label="Registrar nuevo perro" />
             <AccionCard to="/mis-camadas/nuevo" icon="➕" label="Registrar camada" />
             <AccionCard to="/cambiar-password" icon="🔑" label="Cambiar contraseña" />
