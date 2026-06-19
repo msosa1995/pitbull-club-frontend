@@ -36,6 +36,8 @@ export const login = (username, password) =>
 
 // Stats (público)
 export const getStats = () => axios.get(`${API_URL}/api/integrantes/stats/`)
+export const getSociosPublico = (params) => axios.get(`${API_URL}/api/integrantes/publico/`, { params })
+export const getSocioPublico = (id) => axios.get(`${API_URL}/api/integrantes/${id}/perfil/`)
 
 // Integrantes (admin)
 export const getIntegrantes = (params) => api.get('/api/integrantes/', { params })
