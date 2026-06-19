@@ -6,6 +6,8 @@ import PitbullSilhouette from '../components/PitbullSilhouette'
 
 const PASO = { CI: 'ci', PASSWORD: 'password', ACTIVAR: 'activar' }
 
+const normalizarTel = (n) => n.replace(/[\s\-.()\+]/g, '')
+
 export default function Login() {
   const { login, loginConTokens } = useAuth()
   const navigate = useNavigate()
@@ -22,7 +24,7 @@ export default function Login() {
   const handleVerificarCI = async e => {
     e.preventDefault()
     setError('')
-    if (!ci.trim()) { setError('Ingresá tu CI'); return }
+    if (!ci.trim()) { setError('Ingresá tu número de WhatsApp'); return }
     setLoading(true)
     try {
       const res = await verificarCI(ci.trim())
@@ -41,7 +43,8 @@ export default function Login() {
     setError('')
     setLoading(true)
     try {
-      await login(ci.trim(), password)
+      const username = tipo === 'admin' ? ci.trim() : `tel_${normalizarTel(ci.trim())}`
+      await login(username, password)
       navigate(tipo === 'admin' ? '/panel' : '/mi-panel')
     } catch {
       setError('Contraseña incorrecta')
@@ -92,13 +95,13 @@ export default function Login() {
           <>
             <Divider text="ACCESO AL SISTEMA" />
             <form onSubmit={handleVerificarCI} style={s.form}>
-              <Field label="NÚMERO DE CÉDULA" value={ci} onChange={setCi}
-                placeholder="Ej: 4.567.890" autoFocus />
+              <Field label="WHATSAPP / TELÉFONO" value={ci} onChange={setCi}
+                placeholder="Ej: 0981-427-603" autoFocus />
               {error && <Error msg={error} />}
               <button style={s.btn} disabled={loading}>
                 {loading ? 'VERIFICANDO...' : 'CONTINUAR →'}
               </button>
-              <p style={s.hint}>Usá el número de cédula registrado en el club.</p>
+              <p style={s.hint}>Usá el número de WhatsApp registrado en el club.</p>
             </form>
           </>
         )}
@@ -113,7 +116,7 @@ export default function Login() {
               <button style={s.btn} disabled={loading}>
                 {loading ? 'INGRESANDO...' : 'INGRESAR'}
               </button>
-              <button type="button" style={s.backBtn} onClick={volver}>← Cambiar CI</button>
+              <button type="button" style={s.backBtn} onClick={volver}>← Cambiar número</button>
             </form>
           </>
         )}
@@ -130,7 +133,7 @@ export default function Login() {
               <button style={s.btn} disabled={loading}>
                 {loading ? 'ACTIVANDO...' : 'ACTIVAR MI CUENTA'}
               </button>
-              <button type="button" style={s.backBtn} onClick={volver}>← Cambiar CI</button>
+              <button type="button" style={s.backBtn} onClick={volver}>← Cambiar número</button>
             </form>
           </>
         )}
