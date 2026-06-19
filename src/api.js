@@ -82,6 +82,8 @@ export const deleteCamada = (id) => api.delete(`/api/camadas/${id}/`)
 // Sesión
 export const getMe = () => api.get('/api/me/')
 export const cambiarPassword = (data) => api.post('/api/cambiar-password/', data)
+export const verificarCI = (cedula) => axios.post(`${API_URL}/api/verificar-ci/`, { cedula })
+export const activarCuenta = (cedula, password) => axios.post(`${API_URL}/api/activar-cuenta/`, { cedula, password })
 
 // Panel de miembro — mis perros
 export const getMisPerros = (params) => api.get('/api/mis-perros/', { params })
