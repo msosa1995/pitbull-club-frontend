@@ -72,6 +72,7 @@ export const getCampeonato = (id) => axios.get(`${API_URL}/api/campeonatos/${id}
 
 // Mapa (público)
 export const getMapa = () => axios.get(`${API_URL}/api/integrantes/mapa/`)
+export const getMapaRazas = () => axios.get(`${API_URL}/api/perros/mapa-razas/`)
 
 // Camadas (público GET)
 export const getCamadas = (params) => axios.get(`${API_URL}/api/camadas/`, { params })
