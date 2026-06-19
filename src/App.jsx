@@ -7,6 +7,7 @@ import Club from './pages/public/Club'
 import RazaPitbull from './pages/public/RazaPitbull'
 import RazaBully from './pages/public/RazaBully'
 import EjemplaresPublico from './pages/public/EjemplaresPublico'
+import EjemplarDetalle from './pages/public/EjemplarDetalle'
 import Eventos from './pages/public/Eventos'
 import Campeonatos from './pages/public/Campeonatos'
 import Mapa from './pages/public/Mapa'
@@ -64,6 +65,7 @@ function AppRoutes() {
       <Route path="/razas/pitbull" element={<RazaPitbull />} />
       <Route path="/razas/bully" element={<RazaBully />} />
       <Route path="/ejemplares" element={<EjemplaresPublico />} />
+      <Route path="/ejemplares/:id" element={<EjemplarDetalle />} />
       <Route path="/eventos" element={<Eventos />} />
       <Route path="/campeonatos" element={<Campeonatos />} />
       <Route path="/mapa" element={<Mapa />} />

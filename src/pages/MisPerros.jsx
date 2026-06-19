@@ -55,6 +55,11 @@ export default function MisPerros() {
                   <Badge color="#444">{p.estado_display}</Badge>
                 </div>
                 <div style={styles.detail}>{p.color} · {p.kennel || 'Sin kennel'}</div>
+                <div style={styles.stats}>
+                  <span style={styles.stat}>🐣 {p.total_camadas || 0} camada{p.total_camadas !== 1 ? 's' : ''}</span>
+                  <span style={styles.statDiv}>·</span>
+                  <span style={styles.stat}>🐶 {p.total_cachorros || 0} cachorro{p.total_cachorros !== 1 ? 's' : ''}</span>
+                </div>
               </div>
               <div style={styles.cardActions}>
                 <Link to={`/mis-perros/${p.id}/editar`} style={styles.editBtn}>Editar</Link>
@@ -93,6 +98,9 @@ const styles = {
   nombre: { color: '#e0e0e0', fontWeight: 700, fontSize: 16 },
   meta: { display: 'flex', gap: 6, flexWrap: 'wrap' },
   detail: { color: '#555', fontSize: 12 },
+  stats: { display: 'flex', alignItems: 'center', gap: 6, marginTop: 4 },
+  stat: { color: '#C4956A', fontSize: 11, fontWeight: 600 },
+  statDiv: { color: '#333', fontSize: 11 },
   cardActions: { display: 'flex', flexDirection: 'column', gap: 8, flexShrink: 0 },
   editBtn: { padding: '7px 16px', background: 'rgba(196,149,106,0.1)', border: '1px solid #C4956A44', borderRadius: 4, color: '#C4956A', fontSize: 11, fontWeight: 700, textDecoration: 'none', textAlign: 'center', letterSpacing: 1 },
   deleteBtn: { padding: '7px 16px', background: 'rgba(204,17,0,0.08)', border: '1px solid rgba(204,17,0,0.2)', borderRadius: 4, color: '#cc5555', fontSize: 11, fontWeight: 700, cursor: 'pointer', letterSpacing: 1 },

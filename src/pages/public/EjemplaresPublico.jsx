@@ -258,6 +258,13 @@ function GridCard({ perro }) {
         )}
         {perro.kennel && <div style={styles.cardKennel}>{perro.kennel}</div>}
         <div style={styles.cardDueno}>👤 {perro.dueno_nombre}</div>
+        {(perro.total_camadas > 0 || perro.total_cachorros > 0) && (
+          <div style={styles.cardStats}>
+            <span>🐣 {perro.total_camadas} camada{perro.total_camadas !== 1 ? 's' : ''}</span>
+            <span style={{ color: '#2a2a2a' }}>·</span>
+            <span>🐶 {perro.total_cachorros} cachorro{perro.total_cachorros !== 1 ? 's' : ''}</span>
+          </div>
+        )}
         {perro.variante && perro.variante !== 'na' && (
           <div style={{ ...styles.varianteBadge, borderColor: color, color }}>
             {perro.variante_display}
@@ -576,6 +583,10 @@ const styles = {
     fontWeight: 700,
     letterSpacing: 1,
     borderRadius: 2,
+  },
+  cardStats: {
+    display: 'flex', alignItems: 'center', gap: 6,
+    color: '#C4956A', fontSize: 10, fontWeight: 600, marginBottom: 4,
   },
   cardBorder: {
     height: 2,
