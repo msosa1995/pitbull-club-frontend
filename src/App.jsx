@@ -10,6 +10,7 @@ import EjemplaresPublico from './pages/public/EjemplaresPublico'
 import Eventos from './pages/public/Eventos'
 import Campeonatos from './pages/public/Campeonatos'
 import Contacto from './pages/public/Contacto'
+import Mapa from './pages/public/Mapa'
 
 // Panel de administración
 import Login from './pages/Login'
@@ -38,6 +39,7 @@ function AppRoutes() {
       <Route path="/ejemplares" element={<EjemplaresPublico />} />
       <Route path="/eventos" element={<Eventos />} />
       <Route path="/campeonatos" element={<Campeonatos />} />
+      <Route path="/mapa" element={<Mapa />} />
       <Route path="/contacto" element={<Contacto />} />
 
       {/* ══ AUTH ══ */}

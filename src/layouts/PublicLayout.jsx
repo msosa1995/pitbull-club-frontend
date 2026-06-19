@@ -7,6 +7,7 @@ const NAV_LINKS = [
   { to: '/ejemplares', label: 'EJEMPLARES' },
   { to: '/eventos', label: 'EVENTOS' },
   { to: '/campeonatos', label: 'CAMPEONATOS' },
+  { to: '/mapa', label: 'MAPA' },
   { to: '/contacto', label: 'CONTACTO' },
 ]
 

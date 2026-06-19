@@ -70,4 +70,13 @@ export const deleteNoticia = (id) => api.delete(`/api/noticias/${id}/`)
 export const getCampeonatos = () => axios.get(`${API_URL}/api/campeonatos/`)
 export const getCampeonato = (id) => axios.get(`${API_URL}/api/campeonatos/${id}/`)
 
+// Mapa (público)
+export const getMapa = () => axios.get(`${API_URL}/api/integrantes/mapa/`)
+
+// Camadas
+export const getCamadas = (params) => axios.get(`${API_URL}/api/camadas/`, { params })
+export const createCamada = (data) => api.post('/api/camadas/', data)
+export const updateCamada = (id, data) => api.patch(`/api/camadas/${id}/`, data)
+export const deleteCamada = (id) => api.delete(`/api/camadas/${id}/`)
+
 export default api
