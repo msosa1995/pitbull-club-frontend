@@ -2,16 +2,17 @@ import { NavLink, useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../AuthContext'
 import PawIcon from './PawIcon'
 
-const nav = [
+const adminNav = [
   { to: '/panel',        label: 'Dashboard',   icon: '▦' },
   { to: '/integrantes',  label: 'Integrantes', icon: '👥' },
   { to: '/perros',       label: 'Perros',      icon: '🐕' },
 ]
 
 export default function Sidebar() {
-  const { logout } = useAuth()
+  const { logout, user } = useAuth()
   const navigate = useNavigate()
   const handleLogout = () => { logout(); navigate('/login') }
+  const nav = adminNav
 
   return (
     <aside style={styles.sidebar}>

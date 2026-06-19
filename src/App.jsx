@@ -9,10 +9,10 @@ import RazaBully from './pages/public/RazaBully'
 import EjemplaresPublico from './pages/public/EjemplaresPublico'
 import Eventos from './pages/public/Eventos'
 import Campeonatos from './pages/public/Campeonatos'
-import Contacto from './pages/public/Contacto'
 import Mapa from './pages/public/Mapa'
+import Contacto from './pages/public/Contacto'
 
-// Panel de administración
+// Panel de administración (presidente/admin)
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Integrantes from './pages/Integrantes'
@@ -22,13 +22,40 @@ import Perros from './pages/Perros'
 import PerroDetalle from './pages/PerroDetalle'
 import PerroForm from './pages/PerroForm'
 
-function PrivateRoute({ children }) {
-  const { user } = useAuth()
-  return user ? children : <Navigate to="/login" replace />
+// Panel de miembro
+import MiPanel from './pages/MiPanel'
+import MisPerros from './pages/MisPerros'
+import MiPerroForm from './pages/MiPerroForm'
+import MisCamadas from './pages/MisCamadas'
+import CambiarPassword from './pages/CambiarPassword'
+
+function PrivateRoute({ children, adminOnly = false }) {
+  const { user, loading } = useAuth()
+  if (loading) return <div style={{ background: '#050505', minHeight: '100vh' }} />
+  if (!user) return <Navigate to="/login" replace />
+  if (adminOnly && !user.is_staff) return <Navigate to="/mi-panel" replace />
+  return children
+}
+
+function MemberRoute({ children }) {
+  const { user, loading } = useAuth()
+  if (loading) return <div style={{ background: '#050505', minHeight: '100vh' }} />
+  if (!user) return <Navigate to="/login" replace />
+  // Si debe cambiar password y no está en esa ruta, redirigir
+  if (user.debe_cambiar_password) return <Navigate to="/cambiar-password" replace />
+  return children
 }
 
 function AppRoutes() {
-  const { user } = useAuth()
+  const { user, loading } = useAuth()
+
+  if (loading) return <div style={{ background: '#050505', minHeight: '100vh' }} />
+
+  // Al login, redirigir según rol
+  const postLoginRedirect = user
+    ? (user.debe_cambiar_password ? '/cambiar-password' : user.is_staff ? '/panel' : '/mi-panel')
+    : '/login'
+
   return (
     <Routes>
       {/* ══ RUTAS PÚBLICAS ══ */}
@@ -43,18 +70,31 @@ function AppRoutes() {
       <Route path="/contacto" element={<Contacto />} />
 
       {/* ══ AUTH ══ */}
-      <Route path="/login" element={user ? <Navigate to="/panel" replace /> : <Login />} />
+      <Route path="/login" element={user ? <Navigate to={postLoginRedirect} replace /> : <Login />} />
 
-      {/* ══ PANEL ADMINISTRADOR ══ */}
-      <Route path="/panel" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-      <Route path="/integrantes" element={<PrivateRoute><Integrantes /></PrivateRoute>} />
-      <Route path="/integrantes/nuevo" element={<PrivateRoute><IntegranteForm /></PrivateRoute>} />
-      <Route path="/integrantes/:id" element={<PrivateRoute><IntegranteDetalle /></PrivateRoute>} />
-      <Route path="/integrantes/:id/editar" element={<PrivateRoute><IntegranteForm /></PrivateRoute>} />
-      <Route path="/perros" element={<PrivateRoute><Perros /></PrivateRoute>} />
-      <Route path="/perros/nuevo" element={<PrivateRoute><PerroForm /></PrivateRoute>} />
-      <Route path="/perros/:id" element={<PrivateRoute><PerroDetalle /></PrivateRoute>} />
-      <Route path="/perros/:id/editar" element={<PrivateRoute><PerroForm /></PrivateRoute>} />
+      {/* ══ CAMBIAR PASSWORD (todos los usuarios autenticados) ══ */}
+      <Route path="/cambiar-password" element={
+        user ? <CambiarPassword forzado={user.debe_cambiar_password} /> : <Navigate to="/login" replace />
+      } />
+
+      {/* ══ PANEL ADMINISTRADOR (solo staff) ══ */}
+      <Route path="/panel" element={<PrivateRoute adminOnly><Dashboard /></PrivateRoute>} />
+      <Route path="/integrantes" element={<PrivateRoute adminOnly><Integrantes /></PrivateRoute>} />
+      <Route path="/integrantes/nuevo" element={<PrivateRoute adminOnly><IntegranteForm /></PrivateRoute>} />
+      <Route path="/integrantes/:id" element={<PrivateRoute adminOnly><IntegranteDetalle /></PrivateRoute>} />
+      <Route path="/integrantes/:id/editar" element={<PrivateRoute adminOnly><IntegranteForm /></PrivateRoute>} />
+      <Route path="/perros" element={<PrivateRoute adminOnly><Perros /></PrivateRoute>} />
+      <Route path="/perros/nuevo" element={<PrivateRoute adminOnly><PerroForm /></PrivateRoute>} />
+      <Route path="/perros/:id" element={<PrivateRoute adminOnly><PerroDetalle /></PrivateRoute>} />
+      <Route path="/perros/:id/editar" element={<PrivateRoute adminOnly><PerroForm /></PrivateRoute>} />
+
+      {/* ══ PANEL DE MIEMBRO ══ */}
+      <Route path="/mi-panel" element={<MemberRoute><MiPanel /></MemberRoute>} />
+      <Route path="/mis-perros" element={<MemberRoute><MisPerros /></MemberRoute>} />
+      <Route path="/mis-perros/nuevo" element={<MemberRoute><MiPerroForm /></MemberRoute>} />
+      <Route path="/mis-perros/:id/editar" element={<MemberRoute><MiPerroForm /></MemberRoute>} />
+      <Route path="/mis-camadas" element={<MemberRoute><MisCamadas /></MemberRoute>} />
+      <Route path="/mis-camadas/nuevo" element={<MemberRoute><MisCamadas /></MemberRoute>} />
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

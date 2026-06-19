@@ -73,10 +73,30 @@ export const getCampeonato = (id) => axios.get(`${API_URL}/api/campeonatos/${id}
 // Mapa (público)
 export const getMapa = () => axios.get(`${API_URL}/api/integrantes/mapa/`)
 
-// Camadas
+// Camadas (público GET)
 export const getCamadas = (params) => axios.get(`${API_URL}/api/camadas/`, { params })
 export const createCamada = (data) => api.post('/api/camadas/', data)
 export const updateCamada = (id, data) => api.patch(`/api/camadas/${id}/`, data)
 export const deleteCamada = (id) => api.delete(`/api/camadas/${id}/`)
+
+// Sesión
+export const getMe = () => api.get('/api/me/')
+export const cambiarPassword = (data) => api.post('/api/cambiar-password/', data)
+
+// Panel de miembro — mis perros
+export const getMisPerros = (params) => api.get('/api/mis-perros/', { params })
+export const getMiPerro = (id) => api.get(`/api/mis-perros/${id}/`)
+export const createMiPerro = (data) => api.post('/api/mis-perros/', data)
+export const updateMiPerro = (id, data) => api.patch(`/api/mis-perros/${id}/`, data)
+export const deleteMiPerro = (id) => api.delete(`/api/mis-perros/${id}/`)
+
+// Panel de miembro — mis camadas
+export const getMisCamadas = (params) => api.get('/api/mis-camadas/', { params })
+export const createMiCamada = (data) => api.post('/api/mis-camadas/', data)
+export const updateMiCamada = (id, data) => api.patch(`/api/mis-camadas/${id}/`, data)
+export const deleteMiCamada = (id) => api.delete(`/api/mis-camadas/${id}/`)
+
+// Crear usuario para integrante (admin)
+export const crearUsuarioIntegrante = (id) => api.post(`/api/integrantes/${id}/crear_usuario/`)
 
 export default api

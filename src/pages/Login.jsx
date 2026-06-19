@@ -52,11 +52,12 @@ export default function Login() {
 
         <form onSubmit={handleSubmit} style={styles.form}>
           <div style={styles.field}>
-            <label style={styles.label}>USUARIO</label>
+            <label style={styles.label}>CÉDULA / USUARIO</label>
             <input
               style={styles.input}
               value={form.username}
               onChange={e => setForm({ ...form, username: e.target.value })}
+              placeholder="Nro. de cédula"
               required autoFocus
             />
           </div>
