@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { useState } from 'react'
 import { AuthProvider, useAuth } from './AuthContext'
+import IntroSplash from './components/IntroSplash'
 
 // Páginas públicas
 import Home from './pages/public/Home'
@@ -110,9 +112,18 @@ function AppRoutes() {
 }
 
 export default function App() {
+  const alreadySeen = sessionStorage.getItem('splash_done')
+  const [showSplash, setShowSplash] = useState(!alreadySeen)
+
+  const handleSplashDone = () => {
+    sessionStorage.setItem('splash_done', '1')
+    setShowSplash(false)
+  }
+
   return (
     <AuthProvider>
       <BrowserRouter>
+        {showSplash && <IntroSplash onDone={handleSplashDone} />}
         <AppRoutes />
       </BrowserRouter>
     </AuthProvider>

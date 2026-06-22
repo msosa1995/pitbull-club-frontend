@@ -90,6 +90,39 @@ export default function Home() {
 
   return (
     <PublicLayout>
+      <style>{`
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(28px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        @keyframes sweepLine {
+          from { width: 0; opacity: 0; }
+          to   { width: 100%; opacity: 1; }
+        }
+        @keyframes floatLogo {
+          0%, 100% { transform: translateY(0px); }
+          50%       { transform: translateY(-10px); }
+        }
+        @keyframes glowPulse {
+          0%, 100% { opacity: 0.4; transform: scale(1); }
+          50%       { opacity: 0.7; transform: scale(1.08); }
+        }
+        .hero-badge    { animation: fadeUp  0.6s ease 0.1s both; }
+        .hero-title    { animation: fadeUp  0.7s ease 0.25s both; }
+        .hero-line     { animation: sweepLine 0.6s ease 0.55s both; overflow: hidden; }
+        .hero-slogan   { animation: fadeUp  0.6s ease 0.65s both; }
+        .hero-desc     { animation: fadeUp  0.6s ease 0.80s both; }
+        .hero-btns     { animation: fadeUp  0.6s ease 0.95s both; }
+        .hero-tags     { animation: fadeIn  0.7s ease 1.1s  both; }
+        .hero-logo     { animation: fadeIn  0.8s ease 0.3s  both, floatLogo 4s ease-in-out 1.5s infinite; }
+        .hero-logo-glow{ animation: glowPulse 3s ease-in-out 1.5s infinite; }
+        .hero-pitbull  { animation: fadeIn  1.2s ease 0.2s  both; }
+        .hero-scroll   { animation: fadeIn  0.8s ease 1.4s  both; }
+      `}</style>
 
       {/* ══════════════════ HERO ══════════════════ */}
       <section style={styles.hero}>
@@ -100,42 +133,42 @@ export default function Home() {
         <div style={styles.heroGrid} />
 
         {/* pitbull grande derecha */}
-        <div style={styles.heroPitbull}>
+        <div className="hero-pitbull" style={styles.heroPitbull}>
           <PitbullSilhouette size={520} opacity={0.10} />
         </div>
 
         {/* contenido */}
         <div style={styles.heroContent}>
           <div style={styles.heroLeft}>
-            <div style={styles.heroBadge}>
+            <div className="hero-badge" style={styles.heroBadge}>
               <span style={styles.heroBadgeDot} />
               PARAGUAY — FUNDADO 2024
             </div>
 
-            <h1 style={styles.heroTitle}>
+            <h1 className="hero-title" style={styles.heroTitle}>
               <span style={styles.heroTitleTop}>PIT BULL</span>
               <span style={styles.heroTitleBottom}>CLUB</span>
             </h1>
 
-            <div style={styles.heroGoldLine} />
+            <div className="hero-line" style={styles.heroGoldLine} />
 
-            <p style={styles.heroSlogan}>
+            <p className="hero-slogan" style={styles.heroSlogan}>
               PRESERVANDO LA EXCELENCIA DEL<br />
               <strong style={{ color: '#C4956A' }}>AMERICAN PIT BULL TERRIER</strong><br />
               Y <strong style={{ color: '#C4956A' }}>AMERICAN BULLY</strong>
             </p>
 
-            <p style={styles.heroDesc}>
+            <p className="hero-desc" style={styles.heroDesc}>
               La organización oficial de criadores y propietarios de razas de alto rendimiento
               en Paraguay. Registro, competencia y excelencia canina.
             </p>
 
-            <div style={styles.heroBtns}>
+            <div className="hero-btns" style={styles.heroBtns}>
               <Link to="/club" style={styles.btnPrimary}>CONOCER EL CLUB</Link>
               <Link to="/ejemplares" style={styles.btnSecondary}>VER EJEMPLARES</Link>
             </div>
 
-            <div style={styles.heroTags}>
+            <div className="hero-tags" style={styles.heroTags}>
               <span style={styles.heroTag}>🏆 REGISTRO OFICIAL</span>
               <span style={styles.heroTagSep}>·</span>
               <span style={styles.heroTag}>🐕 PEDIGREE CERTIFICADO</span>
@@ -146,13 +179,13 @@ export default function Home() {
 
           {/* logo flotante */}
           <div style={styles.heroLogoWrap}>
-            <div style={styles.heroLogoGlow} />
-            <img src="/logo.jpg" alt="Pit Bull Club" style={styles.heroLogo} />
+            <div className="hero-logo-glow" style={styles.heroLogoGlow} />
+            <img className="hero-logo" src="/logo.jpg" alt="Pit Bull Club" style={styles.heroLogo} />
           </div>
         </div>
 
         {/* scroll indicator */}
-        <div style={styles.scrollIndicator}>
+        <div className="hero-scroll" style={styles.scrollIndicator}>
           <div style={styles.scrollDot} />
           <span style={styles.scrollText}>SCROLL</span>
         </div>
