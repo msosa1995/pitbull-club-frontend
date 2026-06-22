@@ -177,11 +177,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* logo flotante */}
-          <div style={styles.heroLogoWrap}>
-            <div className="hero-logo-glow" style={styles.heroLogoGlow} />
-            <img className="hero-logo" src="/logo.jpg" alt="Pit Bull Club" style={styles.heroLogo} />
-          </div>
         </div>
 
         {/* scroll indicator */}
